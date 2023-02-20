@@ -1,0 +1,7 @@
+[submodule "aoc"]
+	path = aoc
+	url = https://github.com/thesandybridge/aoc
+
+[submodule "algos"]
+	path = algos
+	url = https://github.com/thesandybridge/dsa_practice
