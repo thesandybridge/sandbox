@@ -5,3 +5,7 @@
 [submodule "algos"]
 	path = algos
 	url = https://github.com/thesandybridge/dsa_practice
+
+[submodule "goapp1"]
+    path = goapp1
+    url = https://github.com/alexbrockson/goapp1
