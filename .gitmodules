@@ -11,5 +11,5 @@
     url = https://github.com/alexbrockson/goapp1
 
 [submodule "random_file"]
-    path = random_file 
+    path = file_parse/random_file
     url = https://github.com/thesandybridge/random_file
