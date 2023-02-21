@@ -22,8 +22,10 @@ exec_js() {
     if [[ -f "$JS" ]]; then
         echo -e "${BOLDBLUE}JavaScript File Parse${ENDCOLOR}"
         echo -e "${BOLDBLUE}====================${ENDCOLOR}"
-
+        echo -e "${BOLDMAGENTA}Node...${ENDCOLOR}"
         node $JS $FILE
+        echo -e "${BOLDMAGENTA}Bun...${ENDCOLOR}"
+        bun $JS $FILE
         get_line_count "js/index.js"
 
     else
