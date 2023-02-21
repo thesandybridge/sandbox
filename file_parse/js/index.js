@@ -11,9 +11,9 @@ let numbers = result
     .map(s => s
         .split("")
         .filter(c => !isNaN(c))
-        .map((c) => parseInt(c, 10))
+        .map(c => parseInt(c, 10))
     )
-    .filter((s) => s.length > 0)
+    .filter(s => s.length > 0)
 
 let et = performance.now()
 
