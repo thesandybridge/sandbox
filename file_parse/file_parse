@@ -14,8 +14,8 @@ RUST=rust/target/release/rust_file_parse
 FILE=$1
 
 get_line_count() {
-    local $1
-    git ls-files | grep $1 | xargs wc -l 
+    LINE_COUNT=`git ls-files | grep $1 | xargs wc -l`
+    echo "Line count:" $LINE_COUNT
 } 
 
 exec_js() {
