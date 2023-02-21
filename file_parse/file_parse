@@ -15,7 +15,7 @@ FILE=$1
 
 get_line_count() {
     LINE_COUNT=`git ls-files | grep $1 | xargs wc -l`
-    echo "Line count:" $LINE_COUNT
+    echo "Line count: ${LINE_COUNT}" 
 } 
 
 exec_js() {

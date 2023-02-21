@@ -16,4 +16,5 @@ fn main() {
 
     let end = start.elapsed();
     println!("Exec Time: {:?}", end);
+    println!("Array Length: {:?}", lines.len());
 }

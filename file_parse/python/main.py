@@ -9,3 +9,4 @@ result = [line for line in file.strip().split("\n")]
 end = time.time()
 
 print(f"Exec Time: {(end - start) * 1000}ms")
+print(f"Array Length: {len(result)}")
