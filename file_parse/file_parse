@@ -1,0 +1,66 @@
+#! /usr/bin/env bash
+#
+#
+BLUE="34"
+YELLOW="33"
+MAGENTA="35"
+BOLDBLUE="\e[1;${BLUE}m"
+BOLDYELLOW="\e[1;${YELLOW}m"
+BOLDMAGENTA="\e[1;${MAGENTA}m"
+ENDCOLOR="\e[0m"
+JS=js/index.js
+PYTHON=python/main.py
+RUST=rust/target/release/rust_file_parse
+FILE=$1
+
+get_line_count() {
+    local $1
+    git ls-files | grep $1 | xargs wc -l 
+} 
+
+exec_js() {
+    if [[ -f "$JS" ]]; then
+        echo -e "${BOLDBLUE}JavaScript File Parse${ENDCOLOR}"
+        echo -e "${BOLDBLUE}====================${ENDCOLOR}"
+
+        node $JS $FILE
+        get_line_count "js/index.js"
+
+    else
+        echo "$JS does not exist."
+    fi
+
+}
+
+exec_py() {
+    if [[ -f "$PYTHON" ]]; then
+        echo -e "${BOLDYELLOW}Python File Parse${ENDCOLOR}"
+        echo -e "${BOLDYELLOW}====================${ENDCOLOR}"
+        
+        python $PYTHON $FILE
+        get_line_count "python/*"
+
+    else
+        echo "$PYTHON does not exist."
+    fi
+}
+
+exec_rust() {
+    if [[ -f "$RUST" ]]; then
+
+        echo -e "${BOLDMAGENTA}Rust File Parse${ENDCOLOR}"
+        echo -e "${BOLDMAGENTA}==================${ENDCOLOR}"
+        
+        $RUST $FILE
+        get_line_count "rust/src/*"
+        
+    else 
+        echo "$RUST does not exist."
+    fi
+}
+
+exec_js
+echo ":::::::::::::::::::::::"
+exec_py
+echo ":::::::::::::::::::::::"
+exec_rust
