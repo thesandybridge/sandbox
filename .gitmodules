@@ -12,4 +12,4 @@
 
 [submodule "file_parse/random_file"]
 	path = file_parse/random_file
-	url = git@github.com:thesandybridge/random_file.git
+	url = https://github.com/thesandybridge/random_file
