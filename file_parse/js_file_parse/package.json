@@ -8,5 +8,6 @@
     "run": "node index.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module"
 }
