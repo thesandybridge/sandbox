@@ -14,6 +14,5 @@ result = [i for i in arr if len(i) > 0]
 
 end = time.time()
 
-print(result)
 print(f"Exec Time: {(end - start) * 1000}ms")
 print(f"Array Length: {len(result)}")
