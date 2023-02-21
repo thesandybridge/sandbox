@@ -10,9 +10,4 @@
     path = goapp1
     url = https://github.com/alexbrockson/goapp1
 
-[submodule "random_file"]
-    path = file_parse/random_file
-    url = https://github.com/thesandybridge/random_file
-[submodule "file_parse/random_file"]
-	path = file_parse/random_file
-	url = https://github.com/thesandybridge/random_file
+
