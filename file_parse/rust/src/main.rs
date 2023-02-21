@@ -23,8 +23,12 @@ fn main() {
 
     let filtered_lines = lines
         .iter()
-        .map(|s| s.parse::<usize>().unwrap())
-        .collect::<Vec<usize>>();
+        .map(|s| s
+             .chars()
+             .map(|c| c.to_digit(10).unwrap())
+             .collect::<Vec<u32>>()
+        )
+        .collect::<Vec<Vec<u32>>>();
 
     let end = start.elapsed();
     println!("Exec Time: {:?}", end);
