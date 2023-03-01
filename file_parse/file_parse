@@ -39,7 +39,7 @@ exec_py() {
         echo -e "${BOLDYELLOW}Python File Parse${ENDCOLOR}"
         echo -e "${BOLDYELLOW}====================${ENDCOLOR}"
         
-        python $PYTHON $FILE
+        $PYTHON $FILE
         get_line_count "python/*"
 
     else
