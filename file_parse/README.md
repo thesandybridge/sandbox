@@ -1,4 +1,4 @@
-# file_parse
+# file_parse benchmark
 
 This repo has two binaries, file_parse and generate_file. Use the latter to generate a file with
 a set amount of lines and optionally set the character length per line.
