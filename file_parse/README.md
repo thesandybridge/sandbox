@@ -7,7 +7,7 @@ a set amount of lines and optionally set the character length per line.
 >
 > [Learn more about generate_file here](https://github.com/thesandybridge/random_file#readme) or run the command with `--help`.
 
-Once the file has been generates run file_parse with the file path passed as an argument.
+Once the file has been generated run file_parse with the file path passed as an argument.
 
 file_parse will attempt to do the following:
 
