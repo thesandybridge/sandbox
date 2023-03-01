@@ -4,8 +4,8 @@ This repo has two binaries, file_parse and generate_file. Use the latter to gene
 a set amount of lines and optionally set the character length per line.
 
 > **Note**
-
-[Learn more about generate_file here][(https://github.com/thesandybridge/random_file#readme) or run the command with `--help`.
+>
+> [Learn more about generate_file here](https://github.com/thesandybridge/random_file#readme) or run the command with `--help`.
 
 Once the file has been generates run file_parse with the file path passed as an argument.
 
