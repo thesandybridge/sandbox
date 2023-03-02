@@ -61,8 +61,12 @@ exec_rust() {
     fi
 }
 
-exec_js
-echo ":::::::::::::::::::::::"
-exec_py
-echo ":::::::::::::::::::::::"
-exec_rust
+JS=$(exec_js)
+PY=$(exec_py)
+RS=$(exec_rust)
+
+echo -e "$JS"
+echo -e ":::::::::::::::::::::::" 
+echo -e "$PY" 
+echo -e ":::::::::::::::::::::::" 
+echo -e "$RS" 
