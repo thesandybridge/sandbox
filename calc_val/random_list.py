@@ -1,16 +1,20 @@
-import random, sys
+import sys
+import numpy as np
+from scipy.stats import truncnorm
+
+def get_truncated_normal(mean=0, sd=1, low=0, upp=10):
+    return truncnorm(
+        (low - mean) / sd, (upp - mean) / sd, loc=mean, scale=sd)
 
 args = sys.argv
+length = int(args[1])
 
-def generate_list(n):
-    for _ in range(n):
+x = get_truncated_normal(mean=5000, sd=5000, low=0, upp=10000)
+data = x.rvs(length)
+
+def generate_list():
+    for i in range(len(data)):
         with open("list", "a") as f:
-            f.write(f"{random.randint(0,10_000)}\n")
+            f.write(f"{round(data[i])}\n")
 
-
-generate_list(args[1])
-
-
-
-
-
+generate_list()

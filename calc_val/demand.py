@@ -18,8 +18,17 @@ def calc_curve(time, average):
     return time / average
 
 def salary_potential(average, value):
-    increase = average * value
-    return locale.currency(average + increase, grouping=True)
+    base = average
+    if value < 1:
+        base = average - (average * 15 / 100)
+    elif value == 1:
+        base = average
+    elif value > 1 and value <= 10:
+        base = average + (average * 15 / 100)
+    else:
+        base = average + (average * 20 / 100)
+
+    return locale.currency(base, grouping=True)
 
 
 jobs = int(args[1])
