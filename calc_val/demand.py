@@ -17,16 +17,20 @@ def average_time(times):
 def calc_curve(time, average):
     return time / average
 
+def percentage(v, n, sub=False):
+    if sub == False:
+        return v + (v * n / 100)
+    return v - (v * n / 100)
+
+
 def salary_potential(average, value):
     base = average
     if value < 1:
-        base = average - (average * 15 / 100)
+        base = percentage(average, 15, sub=True)
     elif value == 1:
         base = average
-    elif value > 1 and value <= 10:
-        base = average + (average * 15 / 100)
     else:
-        base = average + (average * 20 / 100)
+        base = percentage(average, value)
 
     return locale.currency(base, grouping=True)
 
