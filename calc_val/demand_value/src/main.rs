@@ -2,6 +2,7 @@ use std::fs;
 use clap::Parser;
 use anyhow::Result;
 use sbx_common::{add_percent, sub_percent};
+mod charts;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -21,6 +22,9 @@ struct Args {
     /// Average salary.
     #[arg(short, long, default_value_t = 100000)]
     salary: usize,
+
+    #[arg(short, long, default_value_t = false)]
+    chart: bool,
 }
 
 fn value(demand: usize, curve: usize) -> usize {
@@ -31,7 +35,7 @@ fn demand(jobs: usize, supply: usize) -> usize {
     return jobs / supply;
 }
 
-fn average_time(times: Vec<usize>) -> usize {
+fn average_time(times: &Vec<usize>) -> usize {
     let sum: usize = times.iter().sum();
     let average = sum / times.len();
     return average;
@@ -63,6 +67,7 @@ fn main() -> Result<()> {
     let hours = args.time;
     let salary = args.salary;
     let path = args.path;
+    let chart = args.chart;
 
     let file = fs::read_to_string(path)?;
 
@@ -72,7 +77,7 @@ fn main() -> Result<()> {
         .collect::<Vec<usize>>();
     let supply = times.len();
 
-    let average = average_time(times);
+    let average = average_time(&times);
     let dem = demand(jobs, supply);
     let curve = calc_curve(hours, average);
     let val = value(dem, curve);
@@ -85,6 +90,10 @@ fn main() -> Result<()> {
     println!("Value: {}", val);
     println!("==========");
     println!("Salary Potential: {}", potential);
+
+    if chart {
+        charts::bar(&times)?;
+    }
 
     return Ok(());
 }
