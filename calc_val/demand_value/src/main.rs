@@ -65,7 +65,6 @@ fn salary_potential(average: usize, value: usize) -> usize {
         _ => {
             base = percentage(average, value, None);
         }
-
     }
     return base;
 }
@@ -77,7 +76,7 @@ fn main() -> Result<()> {
     let salary = args.salary;
     let path = args.path;
 
-    let file = fs::read_to_string(path).expect("Missing file");
+    let file = fs::read_to_string(path)?;
 
     let times = file
         .lines()
