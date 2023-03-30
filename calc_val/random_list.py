@@ -1,5 +1,4 @@
 import sys
-import numpy as np
 from scipy.stats import truncnorm
 
 def get_truncated_normal(mean=0, sd=1, low=0, upp=10):
