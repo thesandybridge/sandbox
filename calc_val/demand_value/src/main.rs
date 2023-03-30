@@ -1,15 +1,14 @@
-use std::fs;
 use clap::Parser;
 use anyhow::Result;
-use sbx_common::{add_percent, sub_percent};
+use sbx_common::{add_percent, sub_percent, generate_nordis_vec};
 mod charts;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
-    /// Path of file to generate or append.
-    #[arg()]
-    path: String,
+    /// Number of available people available.
+    #[arg(short, long, default_value_t = 10000)]
+    people: usize,
 
     /// Number of jobs available.
     #[arg(short, long, default_value_t = 10000)]
@@ -23,39 +22,64 @@ struct Args {
     #[arg(short, long, default_value_t = 100000)]
     salary: usize,
 
+    /// Generate and display a chart.
     #[arg(short, long, default_value_t = false)]
     chart: bool,
+
+    /// Enable verbose output
+    #[arg(short, long, default_value_t = false)]
+    verbose: bool,
 }
 
-fn value(demand: usize, curve: usize) -> usize {
+#[macro_export]
+macro_rules! debug {
+    ($debug:ident, $message:literal, $($value:expr),* ) => {
+        {
+           if $debug {
+               print!("DEBUG: ");
+               println!($message, $($value),*);
+           }
+        }
+    };
+}
+
+fn value(demand: usize, curve: usize, debug: bool) -> usize {
+    debug!(debug, "value = {} * {}", demand, curve);
     return demand * curve;
+
 }
 
-fn demand(jobs: usize, supply: usize) -> usize {
+fn demand(jobs: usize, supply: usize, debug: bool) -> usize {
+    debug!(debug, "demand = {} / {}", jobs, supply);
     return jobs / supply;
 }
 
-fn average_time(times: &Vec<usize>) -> usize {
+fn average_time(times: &Vec<usize>, debug: bool) -> usize {
     let sum: usize = times.iter().sum();
+    debug!(debug, "average = {} / {}", sum, times.len());
     let average = sum / times.len();
     return average;
 }
 
-fn calc_curve(time: usize, average: usize) -> usize{
+fn calc_curve(time: usize, average: usize, debug: bool) -> usize{
+    debug!(debug, "curve = {} / {}", time, average);
     return time / average;
 }
 
-fn salary_potential(average: usize, value: usize) -> usize {
+fn salary_potential(average: usize, value: usize, debug: bool) -> usize {
     let base;
     match value {
         0..=1 => {
             base = sub_percent(average, 15);
+            debug!(debug, "value is less than 1 - salary: {}", base);
         },
         a if a == 1 => {
             base = average;
+            debug!(debug, "value is equal to 1 - salary: {}", base);
         },
         _ => {
             base = add_percent(average, value);
+            debug!(debug, "value is greater than 1 - salary: {}", base);
         }
     }
     return base;
@@ -66,23 +90,17 @@ fn main() -> Result<()> {
     let jobs = args.jobs;
     let hours = args.time;
     let salary = args.salary;
-    let path = args.path;
+    let supply = args.people;
     let chart = args.chart;
+    let debug = args.verbose;
 
-    let file = fs::read_to_string(path)?;
+    let times = generate_nordis_vec(supply, 5000.0, 5000.0, 0, 10000);
+    let average = average_time(&times, debug);
+    let dem = demand(jobs, supply, debug);
+    let curve = calc_curve(hours, average, debug);
+    let val = value(dem, curve, debug);
 
-    let times = file
-        .lines()
-        .map(|line| line.parse::<usize>().unwrap())
-        .collect::<Vec<usize>>();
-    let supply = times.len();
-
-    let average = average_time(&times);
-    let dem = demand(jobs, supply);
-    let curve = calc_curve(hours, average);
-    let val = value(dem, curve);
-
-    let potential = salary_potential(salary, val);
+    let potential = salary_potential(salary, val, debug);
 
     println!("Supply: {}", supply);
     println!("Jobs: {}", jobs);
