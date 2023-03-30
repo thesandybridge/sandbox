@@ -1,6 +1,7 @@
 use std::fs;
 use clap::Parser;
 use anyhow::Result;
+use sbx_common::{add_percent, sub_percent};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -40,30 +41,17 @@ fn calc_curve(time: usize, average: usize) -> usize{
     return time / average;
 }
 
-fn percentage(value: usize, n: usize, sub: Option<bool>) -> usize {
-    if let Some(t) = sub {
-
-        if t {
-            return value - (value * n / 100);
-        }
-
-        return value + (value * n / 100);
-    }
-
-    return value + (value * n / 100);
-}
-
 fn salary_potential(average: usize, value: usize) -> usize {
     let base;
     match value {
         0..=1 => {
-            base = percentage(average, 15, Some(true));
+            base = sub_percent(average, 15);
         },
         a if a == 1 => {
             base = average;
         },
         _ => {
-            base = percentage(average, value, None);
+            base = add_percent(average, value);
         }
     }
     return base;
