@@ -1,7 +1,6 @@
 use clap::Parser;
 use anyhow::Result;
 use sbx_common::{add_percent, sub_percent, generate_nordis_vec};
-mod charts;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -21,10 +20,6 @@ struct Args {
     /// Average salary.
     #[arg(short, long, default_value_t = 100000)]
     salary: usize,
-
-    /// Generate and display a chart.
-    #[arg(short, long, default_value_t = false)]
-    chart: bool,
 
     /// Enable verbose output
     #[arg(short, long, default_value_t = false)]
@@ -54,10 +49,10 @@ fn demand(jobs: usize, supply: usize, debug: bool) -> usize {
     return jobs / supply;
 }
 
-fn average_time(times: &Vec<usize>, debug: bool) -> usize {
-    let sum: usize = times.iter().sum();
+fn average_time(times: &Vec<f64>, debug: bool) -> usize {
+    let sum: f64 = times.iter().sum();
     debug!(debug, "average = {} / {}", sum, times.len());
-    let average = sum / times.len();
+    let average = sum as usize / times.len();
     return average;
 }
 
@@ -91,10 +86,9 @@ fn main() -> Result<()> {
     let hours = args.time;
     let salary = args.salary;
     let supply = args.people;
-    let chart = args.chart;
     let debug = args.verbose;
 
-    let times = generate_nordis_vec(supply, 5000.0, 5000.0, 0, 10000);
+    let times = generate_nordis_vec(supply, 5000.0, 5000.0, 0.0, 10000.0);
     let average = average_time(&times, debug);
     let dem = demand(jobs, supply, debug);
     let curve = calc_curve(hours, average, debug);
@@ -108,10 +102,6 @@ fn main() -> Result<()> {
     println!("Value: {}", val);
     println!("==========");
     println!("Salary Potential: {}", potential);
-
-    if chart {
-        charts::bar(&times)?;
-    }
 
     return Ok(());
 }
