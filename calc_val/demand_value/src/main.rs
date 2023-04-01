@@ -1,6 +1,6 @@
 use clap::Parser;
 use anyhow::Result;
-use sbx_common::{add_percent, sub_percent, generate_nordis_vec};
+use sbx_common::{add_percent, sub_percent, generate_nordis_vec, debug};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -24,18 +24,6 @@ struct Args {
     /// Enable verbose output
     #[arg(short, long, default_value_t = false)]
     verbose: bool,
-}
-
-#[macro_export]
-macro_rules! debug {
-    ($debug:ident, $message:literal, $($value:expr),* ) => {
-        {
-           if $debug {
-               print!("DEBUG: ");
-               println!($message, $($value),*);
-           }
-        }
-    };
 }
 
 fn value(demand: usize, curve: usize, debug: bool) -> usize {
