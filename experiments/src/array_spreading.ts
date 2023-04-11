@@ -1,13 +1,8 @@
-export function spreading(arr: []): [] {
-    return [...arr]
+export function spread(arr1: number[], arr2: number[]): number[] {
+    return [...arr1, ...arr2]
 }
 
-export function usingPush(arr: []): number[] | string[] {
-    const items: number[] | string[] = []
-
-    for (let i = 0; i < arr.length; i++) {
-        items.push(arr[i])
-    }
-
-    return items
+export function concat(arr1: number[], arr2: number[]): number[] {
+    const arr = arr1.concat(arr2)
+    return arr
 }
