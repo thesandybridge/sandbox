@@ -76,5 +76,17 @@ function spreadVsConcat(): number[] {
 
 const [spreaded, concated] = spreadVsConcat()
 
-console.log(spreaded, concated)
+//console.log(spreaded, concated)
+
+
+/**
+ * Recursive function that will break or cause a memory error.
+ *
+ * @param {number} x
+ * @returns {number}
+ */
+function func(x: number): number {
+    return func(x - 1);
+}
+
 
