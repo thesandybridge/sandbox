@@ -14,4 +14,5 @@ def nmap_py(ip_addr, args):
 
 with open(args[1], "r") as file:
     iplist = file.read()
-    nmap_py(iplist, args[2])
+    print(iplist)
+    #nmap_py(iplist, args[2])
