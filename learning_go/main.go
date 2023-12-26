@@ -39,13 +39,13 @@ func createPerson() Person {
 
 func writePersonToFile() {
 	person := createPerson()
-	file, err := os.Create("person.txt")
+	file, err := os.OpenFile("person.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
 	if err != nil {
 		fmt.Println("Error creating file:", err)
 		return
 	}
 	defer file.Close()
-	_, err = file.WriteString(fmt.Sprintf("%s,%d,%s", person.name, person.age, person.job))
+	_, err = file.WriteString(fmt.Sprintf("%s,%d,%s\n", person.name, person.age, person.job))
 
 	if err != nil {
 		fmt.Println("Error writing to file:", err)
