@@ -6,17 +6,12 @@ import (
     "os"
     "strconv"
     "strings"
-    "time"
 )
 
 type Person struct {
     name string
     age int
     job string
-}
-
-func formatTime(t time.Time) string {
-    return t.Format("01-02-2006 15:04")
 }
 
 func handleInput(message string) string {
