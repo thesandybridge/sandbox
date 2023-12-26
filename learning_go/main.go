@@ -37,9 +37,9 @@ func createPerson() Person {
 	return Person{name, int(age), job}
 }
 
-func writePersonToFile() {
+func writePersonToFile(filepath string) {
 	person := createPerson()
-	file, err := os.OpenFile("person.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
+	file, err := os.OpenFile(filepath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
 	if err != nil {
 		fmt.Println("Error creating file:", err)
 		return
@@ -54,5 +54,6 @@ func writePersonToFile() {
 }
 
 func main() {
-	writePersonToFile()
+	filepath := handleInput("Enter filepath: ")
+	writePersonToFile(filepath)
 }
