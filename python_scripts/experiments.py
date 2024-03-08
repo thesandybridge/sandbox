@@ -1,7 +1,7 @@
 thing_one = 1
 
 def modify_things(thing):
-    thing += 1
+    thing = 5
     return thing
 
 modify_things(thing_one)

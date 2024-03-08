@@ -3,6 +3,6 @@ function modify_things(thing) {
     return thing;
 }
 
-let thing = 1;
+const thing = 1;
 modify_things(thing);
 console.log(thing);
