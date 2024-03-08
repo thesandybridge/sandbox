@@ -1,8 +1,11 @@
 function modify_things(thing) {
-    thing += 1;
-    return thing;
+    for (let i = 0; i < thing.length; i++) {
+        thing[i] = i;
+    }
 }
 
-const thing = 1;
+let thing = new Array(1000000);
 modify_things(thing);
+let thing2 = thing.slice(0, 10);
 console.log(thing);
+console.log(thing2);
