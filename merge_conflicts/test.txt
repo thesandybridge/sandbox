@@ -1,2 +1,3 @@
 this is some stuff
 this should trigger a conflict
+this should break stuff
