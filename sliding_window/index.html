@@ -11,6 +11,7 @@
         :root {
             --primary-color: #61f477;
             --secondary-color: #151515;
+            --charcoal-color: #333;
             --tertiary-color: #fff;
         }
 
@@ -66,7 +67,12 @@
         .view-window {
             display: flex;
             z-index: 999;
-            border: solid 2px var(--primary-color);
+            border: dashed 2px var(--charcoal-color);
+
+            &.active {
+                border-style: solid;
+                border-color: var(--primary-color);
+            }
         }
 
         .items-container {
@@ -309,7 +315,7 @@
                 const substringValue = subStringInput.value.trim();
 
                 if (substringValue.length === 0) {
-                    viewWindow.style.borderColor = 'var(--primary-color)';
+                    viewWindow.classList.remove('active');
                     return;
                 }
 
@@ -325,7 +331,7 @@
 
                 const substringFound = combinedText.includes(substringValue);
 
-                viewWindow.style.borderColor = substringFound ? '#4bf4ca' : 'var(--primary-color)';
+                substringFound ? viewWindow.classList.add('active') : viewWindow.classList.remove('active');
             }
 
 
