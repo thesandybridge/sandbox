@@ -114,7 +114,7 @@
                 </div>
             </div>
             <div class="user-input-area">
-                <label for="windowSize">Window Size:</label>
+                <label for="windowSize">Window Size: <span class="window_size"></span></label>
                 <div>
                     <input id="windowSize" type="range" value="2" min="2" max="30"/>
                 </div>
@@ -152,6 +152,7 @@
             const wrapper = document.querySelector('.wrapper');
             const carouselWrapper = document.querySelector('#carouselWrapper');
             const windowSelector = document.querySelector('#windowSize');
+            const windowSizeHTML = document.querySelector('.window_size');
             const numberInput = document.querySelector('#inputSize');
             const content = document.querySelector('#content');
             const removeSpaces = document.querySelector('#removeSpaces');
@@ -168,6 +169,7 @@
                 carouselWrapper.style.maxWidth = `${width}px`;
                 wrapper.style.maxWidth = `${width + 200}px`;
                 viewWindow.style.width = `${width}px`;
+                windowSizeHTML.textContent = windowSize;
             }
 
             itemCount = 20;
