@@ -15,9 +15,10 @@ fn up_or_down_addr(other: Option<&i32>, depth: i32) -> bool {
     let x = 0;
 
     match other {
-        Some(other_ref) => {
-            println!("Current addr: {:p} Previous addr: {:p}", &x, other_ref);
-            &x as *const i32 > other_ref as *const i32
+        Some(next_ref) => {
+            println!("[{:p}]", &x);
+            println!("[{:p}]", next_ref);
+            &x as *const i32 > next_ref as *const i32
         }
         None if depth > 0 => up_or_down_addr(Some(&x), depth - 1),
         _ => false,
