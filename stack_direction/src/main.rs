@@ -18,19 +18,25 @@ fn up_or_down_addr(other: Option<&i32>, depth: i32) -> bool {
         Some(next_ref) => {
             println!("[{:p}]", &x);
             println!("[{:p}]", next_ref);
-            &x as *const i32 > next_ref as *const i32
+
+            let is_up = &x as *const i32 > next_ref as *const i32;
+
+            if is_up {
+                println!("The stack grows upwards.");
+            } else {
+                println!("The stack grows downwards.");
+            }
+
+            is_up
         }
         None if depth > 0 => up_or_down_addr(Some(&x), depth - 1),
-        _ => false,
+        _ => {
+            println!("Only one address to compare: [{:p}]", &x);
+            false
+        }
     }
 }
 
 fn main() {
-    let is_up = up_or_down_addr(None, 10);
-
-    if is_up {
-        println!("The stack grows upwards.");
-    } else {
-        println!("The stack grows downwards.");
-    }
+    up_or_down_addr(None, 0);
 }
