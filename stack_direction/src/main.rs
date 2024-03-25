@@ -1,40 +1,35 @@
-//fn up_or_down(other: Option<&i32>) -> bool {
+//fn stack_growth_direction() {
 //    let x = 0;
-//    let x_ptr: *const i32 = &x;
+//    let y = 0;
+//    println!("Address of x: {:p}", &x);
+//    println!("Address of y: {:p}", &y);
 //
-//    match other {
-//        Some(other_ref) => x_ptr > other_ref as *const i32,
-//        None => false,
+//    if &y < &x {
+//        println!("The stack grows upwards.");
+//    } else {
+//        println!("The stack grows downwards.");
 //    }
 //}
 
-fn up_or_down_addr(other: Option<&i32>) -> bool {
+fn up_or_down_addr(other: Option<&i32>, depth: i32) -> bool {
     let x = 0;
-    let x_ptr: *const i32 = &x;
-
-    println!("[{:p}]", x_ptr);
 
     match other {
         Some(other_ref) => {
-            println!("[{:p}]", other_ref as *const i32);
-
-            x_ptr > other_ref as *const i32
+            println!("Current addr: {:p} Previous addr: {:p}", &x, other_ref);
+            &x as *const i32 > other_ref as *const i32
         }
-        None => false,
+        None if depth > 0 => up_or_down_addr(Some(&x), depth - 1),
+        _ => false,
     }
 }
 
 fn main() {
-    let y = 0;
-    // wanted to adjust to show the address
-    let answer_with_address = if up_or_down_addr(Some(&y)) {
-        "up"
-    } else {
-        "down"
-    };
-    println!("Stack direction: {}", answer_with_address);
-    println!("Architecture: {}", std::env::consts::ARCH);
+    let is_up = up_or_down_addr(None, 10);
 
-    //let answer_without_address = if up_or_down(None) { "up" } else { "down" };
-    //println!("Result without address: {}", answer_without_address);
+    if is_up {
+        println!("The stack grows upwards.");
+    } else {
+        println!("The stack grows downwards.");
+    }
 }
