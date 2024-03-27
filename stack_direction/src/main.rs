@@ -83,7 +83,7 @@ fn main() {
     let n = is_even(5);
     println!("Is 4 even? {}", n);
 
-    let v = 25;
+    let v = -25;
     let n = absolute_value(v);
     println!("The absolute value of {} is: {}", n, v);
 }
