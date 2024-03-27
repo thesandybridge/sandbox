@@ -38,7 +38,10 @@ fn up_or_down_addr(other: Option<&i32>, depth: i32) -> bool {
     }
 }
 
-fn get_index_ptr<T>(array: &[T], index: usize) -> i32 {
+fn get_index_ptr<T>(array: &[T], index: usize) -> i32
+where
+    T: Copy + std::fmt::Debug,
+{
     unsafe {
         // convert the array to a raw pointer
         let x_ptr = array.as_ptr();
