@@ -38,6 +38,25 @@ fn up_or_down_addr(other: Option<&i32>, depth: i32) -> bool {
     }
 }
 
+fn is_even(x: i32) -> bool {
+    x >> 2 << 2 == x
+}
+
+fn absolute_value(n: i8) -> i8 {
+    for i in (0..8).rev() {
+        print!("{:3}", 2u8.pow(i));
+    }
+    println!();
+    println!("n: {:08b} : {}", n, n);
+    let mask = n >> 7;
+    println!("m: {:08b} : {}", mask, mask);
+    let xor = n ^ mask;
+    println!("x: {:08b} : {}", xor, xor);
+    let abs = xor - mask;
+    println!("a: {:08b} : {}", abs, abs);
+    return abs;
+}
+
 fn get_index_ptr<T>(array: &[T], index: usize) -> i32
 where
     T: Copy + std::fmt::Debug,
@@ -49,6 +68,7 @@ where
         let index_ptr = x_ptr as usize + (index * size_of::<i32>() as usize);
         // convert the address to a raw pointer
         let index_ptr = index_ptr as *const i32;
+        println!("{:?}", index_ptr);
         return *index_ptr;
     }
 }
@@ -59,4 +79,11 @@ fn main() {
     let x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     let index = get_index_ptr(&x, 2);
     println!("The value at index 2 is: {}", index);
+
+    let n = is_even(5);
+    println!("Is 4 even? {}", n);
+
+    let v = 25;
+    let n = absolute_value(v);
+    println!("The absolute value of {} is: {}", n, v);
 }
