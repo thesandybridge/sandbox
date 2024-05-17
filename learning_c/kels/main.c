@@ -1,38 +1,30 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <time.h>
 
-int* create_array(int size);
+#define ITERATIONS 100000000
 
 int main() {
-    int size = 10;
-    int *array = create_array(size);
+    int n = 123456789;
 
-    if (array == NULL) {
-        printf("Memory allocation failed\n");
-        return 1;
+    // Measure time for bitwise AND
+    clock_t start_and = clock();
+    for (int i = 0; i < ITERATIONS; i++) {
+        int result = n & 1;
     }
+    clock_t end_and = clock();
+    double time_and = (double)(end_and - start_and) / CLOCKS_PER_SEC;
 
-    for (int i = 0; i < size; i++) {
-        printf("%d ", array[i]);
+    // Measure time for modulo
+    clock_t start_mod = clock();
+    for (int i = 0; i < ITERATIONS; i++) {
+        int result = n % 2;
     }
-    printf("\n");
+    clock_t end_mod = clock();
+    double time_mod = (double)(end_mod - start_mod) / CLOCKS_PER_SEC;
 
-    free(array);
+    printf("Time for bitwise AND: %f seconds\n", time_and);
+    printf("Time for modulo: %f seconds\n", time_mod);
 
     return 0;
-}
-
-int* create_array(int size) {
-    int *array = (int *)malloc(size * sizeof(int));
-
-    if (array == NULL) {
-        return NULL;
-    }
-
-    for (int i = 0; i < size; i++) {
-        array[i] = i + 1;
-    }
-
-    return array;
 }
 
