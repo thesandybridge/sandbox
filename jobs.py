@@ -67,6 +67,7 @@ sankey = go.Sankey(
     )
 )
 
+# Create the figure and add annotation
 fig = go.Figure(data=[sankey])
 fig.update_layout(
     title_text="2024 Job Hunt",
